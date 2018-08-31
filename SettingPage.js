@@ -82,7 +82,7 @@ export default class SettingPage extends Component{
               <View style={{backgroundColor:'#eaeff7',height:40,borderBottomWidth:1,borderBottomColor:'grey'}}>
                   <Text style={{marginLeft:10,fontSize:20, fontWeight:'bold'}}>Brightness</Text>
               </View>
-              <View style={{height:60,borderBottomWidth:1,borderBottomColor:'grey'}}>
+              <View style={{height:60, borderBottomWidth:1,borderBottomColor:'grey'}}>
               <Slider style={{margin:20}}></Slider>
               </View>
           </View>

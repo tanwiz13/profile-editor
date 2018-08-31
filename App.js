@@ -10,6 +10,7 @@ import CardComp from './CardComp';
 import SettingPage from './SettingPage';
 import ApiList from './ApiList';
 import {Icon} from 'react-native-elements';
+import NavScreen from './NavScreen';
 
 
 
@@ -29,16 +30,24 @@ class TabContainer extends Component {
   }
 }
 const StackNav = createStackNavigator({
+  NavScreen:NavScreen,
   Login:SignIn,
   SignUp:SignUp,
-  TabScreen: ApiList
+  TabScreen: {
+    screen :TabContainer,
+    navigationOptions: 
+    { header:null 
+    }
+  },    // this.state = { 
+    //   display: 'loginForm' 
+    // };
 })
 
 const MyTab= createBottomTabNavigator({
   content: {
     screen: ApiList,
     navigationOptions: {
-      tabBarLabel: "Settings",
+      tabBarLabel: "Feed",
       tabBarIcon: ({ tintColor }) => (
         <Icon name='list-alt' type='font-awesome' color={tintColor}/>
       )
@@ -56,7 +65,7 @@ const MyTab= createBottomTabNavigator({
   settings:{
     screen: SettingPage,
     navigationOptions: {
-      tabBarLabel: "Feed",
+      tabBarLabel: "Setting",
       tabBarIcon: ({ tintColor }) => (
         <Icon name='newspaper-o' type='font-awesome' color={tintColor}/>
       )

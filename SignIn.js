@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, TextInput, Text, View, Image, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, TextInput, Text, View, Image, TouchableOpacity,AsyncStorage} from 'react-native';
 import InputBox from './InputBox';
 import CustomButton from './CustomButton';
 
 export default class SignIn extends Component{
-    static navigationOptions = {
+  constructor(props) {
+    super(props);
+    // this.navToList();
+  }
+  
+  static navigationOptions = {
         title: 'Sign In',
       };
 
@@ -30,38 +35,55 @@ export default class SignIn extends Component{
         });
 
         let responseJson = await response.json();
-        // return this.onLogin(responseJson.success);
-        // return this.saveToken(responseJson.token);
-        alert(responseJson.token)
-        if(responseJson.success){return this.props.navigation.navigate('TabScreen',{token:responseJson.token})}
+        return this.loginFunction(responseJson);
+       // alert(responseJson.token)
+        // if(responseJson.success){return this.props.navigation.navigate('TabScreen',{token:responseJson.token,email:this.state.email})}
       } catch (error) {
         console.error(error);
       }
     } 
-    
-  onLogin=(jsonValue)=> {
-  //   const { name, email, password } = this.state;
-  //   var {params}=this.props.navigation.state;
-  //   if (email.match(params.email)&&password.match(params.password)) 
-  //  { 
-    if(jsonValue){
-    // this.authenticateUser();  
 
-    this.props.navigation.navigate('TabScreen');
+    // navToList=()=>{
+    //   if(AsyncStorage!=null){
+    //     this.props.navigation.navigate('TabScreen')
+    //   }
+    // }
+    
+  // onLogin=(jsonValue)=> {
+  // //   const { name, email, password } = this.state;
+  // //   var {params}=this.props.navigation.state;
+  // //   if (email.match(params.email)&&password.match(params.password)) 
+  // //  { 
+  //   if(jsonValue){
+  //   // this.authenticateUser();  
+
+  //   this.props.navigation.navigate('TabScreen');
+  //   }
+  //   else {
+  //   alert('Invalid credentials')
+  //   }
+  // }   
+  loginFunction = (responseJson) => {
+    if(responseJson.success){
+      this.saveToken(responseJson.token);
+      this.props.navigation.navigate('TabScreen');
+      alert('inside login fun')
     }
-    else {
-    alert('Invalid credentials')
+    else{
+      alert('no token')
     }
-  }   
+
+  }
+
   
-  // saveToken = async(tokenValue) => {
-  //   try {
-  //     await AsyncStorage.setItem(':key', 'I like to save it.');
-  //   }
-  //   catch (error) {
-  //     alert('no data stored');
-  //   }
-  // }
+  saveToken = async(tokenValue) => {
+    try {
+      await AsyncStorage.setItem('token', tokenValue);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
 
   render() {
     return (
