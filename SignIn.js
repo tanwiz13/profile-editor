@@ -66,6 +66,7 @@ export default class SignIn extends Component{
   loginFunction = (responseJson) => {
     if(responseJson.success){
       this.saveToken(responseJson.token);
+      this.saveEmail(responseJson.data.email);
       this.props.navigation.navigate('TabScreen');
       alert('inside login fun')
     }
@@ -79,6 +80,14 @@ export default class SignIn extends Component{
   saveToken = async(tokenValue) => {
     try {
       await AsyncStorage.setItem('token', tokenValue);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+  saveEmail = async(email) => {
+    try {
+      await AsyncStorage.setItem('email', email);
     }
     catch (error) {
       console.log(error);

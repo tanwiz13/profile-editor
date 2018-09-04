@@ -9,6 +9,7 @@ export default class ApiList extends Component {
             listData: [],
             tokenVal: '',
             page:1,
+            tokenMessage:'',
         }
     };
 
@@ -26,7 +27,7 @@ export default class ApiList extends Component {
                 });
             let responseJson = await response.json();
             // alert(responseJson.status)
-            this.setState({listData:this.state.listData.concat(responseJson.message.results) })
+            this.setState({listData:this.state.listData.concat(responseJson.message.results)})
         } catch (error) {
             alert(error)
         }
